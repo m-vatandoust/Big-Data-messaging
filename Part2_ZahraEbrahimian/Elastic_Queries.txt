@@ -1,0 +1,58 @@
+GET /_cat/indices/?v
+
+GET /tweeter/_search
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "match_phrase": {
+            "hashtags": "فملی"
+          }
+        },
+        {
+          "range": {
+            "sendTime": {
+              "gte": "2021-07-05",
+              "lte": "2021-07-20"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+
+GET /tweeter/_search
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "match_phrase": {
+            "hashtags": "فملی"
+          }
+        },
+        {
+          "range": {
+            "sendTime": {
+              "gte": "2021-07-05",
+              "lte": "2021-07-20"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "size": 0, 
+  "aggs": {
+    "total_count": {
+      "terms": { 
+        "field": "senderName.keyword" 
+      }
+    }
+  }
+}
+
